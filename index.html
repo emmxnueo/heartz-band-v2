@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heartz Band</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="inicio">
+
+  <!-- Botones invisibles: guardan qué foto eligió el usuario con las flechas -->
+  <input type="radio" name="carrusel" id="foto1" class="selector">
+  <input type="radio" name="carrusel" id="foto2" class="selector">
+  <input type="radio" name="carrusel" id="foto3" class="selector">
+  <input type="radio" name="carrusel" id="foto4" class="selector">
+  <input type="radio" name="carrusel" id="foto5" class="selector">
+
+  <!-- Carrusel de fotos -->
+  <div class="carrusel">
+    <img src="img/carrusel/carrusel1.jpg" alt="Heartz Band en Charro Negro">
+    <img src="img/carrusel/carrusel2.jpg" alt="Heartz Band en Calle 47 Bazar">
+    <img src="img/carrusel/carrusel3.jpg" alt="Integrantes de Heartz Band">
+    <img src="img/carrusel/carrusel4.jpg" alt="Heartz Band en un cumpleaños">
+    <img src="img/carrusel/carrusel5.jpg" alt="Heartz Band en Charro Negro">
+
+    <!-- Flechas de cada foto: anterior (‹) y siguiente (›) -->
+    <div class="flechas f1"><label for="foto5">&#8249;</label><label for="foto2">&#8250;</label></div>
+    <div class="flechas f2"><label for="foto1">&#8249;</label><label for="foto3">&#8250;</label></div>
+    <div class="flechas f3"><label for="foto2">&#8249;</label><label for="foto4">&#8250;</label></div>
+    <div class="flechas f4"><label for="foto3">&#8249;</label><label for="foto5">&#8250;</label></div>
+    <div class="flechas f5"><label for="foto4">&#8249;</label><label for="foto1">&#8250;</label></div>
+  </div>
+
+  <!-- Logo -->
+  <div class="titulo">
+    <img src="img/logo-blanco.png" alt="Heartz">
+    <p><span>B</span><span>A</span><span>N</span><span>D</span></p>
+  </div>
+
+  <!-- Botón de menú -->
+  <a href="#menu" class="boton-menu">&#9776;</a>
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/heartztheband/" target="_blank" class="instagram">INSTAGRAM · @heartztheband</a>
+
+  <!-- Menú -->
+  <div class="menu" id="menu">
+    <a href="#" class="cerrar">&times;</a>
+    <div class="opciones">
+      <a>Biografía <small>Próximamente</small></a>
+      <a href="galeria.html">Galería</a>
+      <a>Contacto <small>Próximamente</small></a>
+    </div>
+    <img src="img/menu/galeria.jpg" alt="Heartz Band en vivo">
+  </div>
+
+</body>
+</html>

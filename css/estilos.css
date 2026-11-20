@@ -1,0 +1,464 @@
+/* ===== GENERAL ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", Arial, sans-serif;
+  background-color: white;
+  color: black;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+h1, h2 {
+  font-family: "Bebas Neue", Arial, sans-serif;
+  font-weight: normal;
+  letter-spacing: 3px;
+}
+
+
+/* ===== INICIO ===== */
+.inicio {
+  background-color: black;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ----- Animación de entrada -----
+   1. El logo se "firma" de izquierda a derecha (0.3 s)
+   2. Aparece BAND letra por letra (2 s)
+   3. Aparece el botón de menú (2 s) y el carrusel (2.5 s)
+   4. Al final aparece el Instagram (3.2 s)                  */
+
+/* Carrusel: aparece después del logo */
+.carrusel {
+  opacity: 0;
+  animation: aparecer 4s 2.5s forwards;
+}
+
+/* Las fotos están una encima de otra y se van turnando */
+.carrusel img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) brightness(70%);
+  opacity: 0;
+  animation: carrusel 30s infinite;
+}
+
+.carrusel img:nth-child(2) { animation-delay: 6s; }
+.carrusel img:nth-child(3) { animation-delay: 12s; }
+.carrusel img:nth-child(4) { animation-delay: 18s; }
+.carrusel img:nth-child(5) { animation-delay: 24s; }
+
+/* Al pasar el cursor el carrusel se detiene */
+.carrusel:hover img {
+  animation-play-state: paused;
+}
+
+@keyframes carrusel {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  20%  { opacity: 1; }
+  25%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* ----- Flechas del carrusel -----
+   Cada foto tiene su par de flechas. Usan la misma animación y los mismos
+   tiempos que las fotos, así que siempre se ven las flechas de la foto
+   que está en pantalla.                                                  */
+.selector {
+  display: none;
+}
+
+.flechas {
+  visibility: hidden;
+  animation: flechas 30s infinite;
+}
+
+.f2 { animation-delay: 6s; }
+.f3 { animation-delay: 12s; }
+.f4 { animation-delay: 18s; }
+.f5 { animation-delay: 24s; }
+
+.carrusel:hover .flechas {
+  animation-play-state: paused;
+}
+
+@keyframes flechas {
+  0%, 22%   { visibility: visible; }
+  23%, 100% { visibility: hidden; }
+}
+
+.flechas label {
+  position: fixed;
+  top: 45%;
+  font-size: 70px;
+  color: white;
+  cursor: pointer;
+  padding: 0 25px;
+  opacity: 0;            /* solo se ven al pasar el cursor por el carrusel */
+  transition: 0.3s;
+}
+
+.flechas label:first-child { left: 10px; }
+.flechas label:last-child  { right: 10px; }
+
+.carrusel:hover .flechas label { opacity: 0.8; }
+.flechas label:hover           { color: gray; }
+
+/* Cuando el usuario da clic en una flecha se marca uno de los botones
+   invisibles: el carrusel deja de avanzar solo y muestra esa foto.    */
+.selector:checked ~ .carrusel img,
+.selector:checked ~ .carrusel .flechas {
+  animation: none;
+}
+
+.carrusel img {
+  transition: opacity 1s;
+}
+
+#foto1:checked ~ .carrusel img:nth-child(1),
+#foto2:checked ~ .carrusel img:nth-child(2),
+#foto3:checked ~ .carrusel img:nth-child(3),
+#foto4:checked ~ .carrusel img:nth-child(4),
+#foto5:checked ~ .carrusel img:nth-child(5) {
+  opacity: 1;
+}
+
+#foto1:checked ~ .carrusel .f1,
+#foto2:checked ~ .carrusel .f2,
+#foto3:checked ~ .carrusel .f3,
+#foto4:checked ~ .carrusel .f4,
+#foto5:checked ~ .carrusel .f5 {
+  visibility: visible;
+}
+
+/* Logo y la palabra BAND */
+.titulo {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+/* El logo empieza tapado y se va descubriendo de izquierda a derecha */
+.titulo img {
+  width: 400px;
+  max-width: 80%;
+  clip-path: inset(0 100% 0 0);
+  animation: firmar 2s 0.3s forwards;
+}
+
+.titulo p {
+  font-family: "Bebas Neue", Arial, sans-serif;
+  font-size: 26px;
+  letter-spacing: 20px;
+  padding-left: 20px;   /* para que quede centrado con el espacio entre letras */
+}
+
+/* Cada letra de BAND aparece una tras otra */
+.titulo span {
+  opacity: 0;
+  animation: aparecer 1.5s forwards;
+}
+
+.titulo span:nth-child(1) { animation-delay: 2s; }
+.titulo span:nth-child(2) { animation-delay: 2.3s; }
+.titulo span:nth-child(3) { animation-delay: 2.6s; }
+.titulo span:nth-child(4) { animation-delay: 2.9s; }
+
+@keyframes firmar {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes aparecer {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Instagram */
+.instagram {
+  position: fixed;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 13px;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: aparecer 1s 3.2s forwards;
+}
+
+.instagram:hover {
+  color: gray;
+}
+
+
+/* ===== BOTÓN DE MENÚ ===== */
+.boton-menu {
+  position: fixed;
+  top: 25px;
+  right: 40px;
+  font-size: 34px;
+  color: white;
+}
+
+.boton-menu:hover {
+  color: gray;
+}
+
+/* En el inicio el botón aparece con la animación de entrada */
+.inicio .boton-menu {
+  opacity: 0;
+  animation: aparecer 1s 2s forwards;
+}
+
+
+/* ===== MENÚ =====
+   Está oculto. Cuando le das clic al botón (enlace a #menu)
+   se muestra gracias a :target                              */
+.menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.menu:target {
+  display: flex;
+}
+
+.opciones {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 8%;
+}
+
+.opciones a {
+  display: block;
+  font-family: "Bebas Neue", Arial, sans-serif;
+  font-size: 70px;
+  line-height: 1;
+  letter-spacing: 6px;
+  color: white;
+  margin: 20px 0;
+}
+
+/* Al pasar el cursor, la opción se subraya y las demás se ponen grises */
+.opciones:hover a {
+  color: gray;
+}
+
+.opciones a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.opciones small {
+  display: block;
+  margin-top: 8px;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: gray;
+}
+
+.menu img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
+/* Botón para cerrar (X) */
+.cerrar {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 50px;
+  color: white;
+  z-index: 1;   /* para que quede encima de la foto */
+}
+
+.cerrar:hover {
+  color: gray;
+  transform: rotate(90deg);
+}
+
+
+/* ===== GALERÍA Y EVENTOS ===== */
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 40px;
+}
+
+.encabezado img {
+  height: 55px;
+}
+
+.encabezado .boton-menu {
+  position: static;
+  color: black;
+}
+
+.encabezado .boton-menu:hover {
+  color: gray;
+}
+
+h1 {
+  text-align: center;
+  font-size: 70px;
+}
+
+.subtitulo {
+  text-align: center;
+  color: gray;
+  margin-bottom: 40px;
+}
+
+/* Tarjetas de la galería */
+.categorias {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 40px 50px;
+}
+
+.categoria {
+  width: 330px;
+  text-align: center;
+}
+
+.categoria img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: 0.4s;
+}
+
+.categoria h2 {
+  font-size: 40px;
+  margin-top: 10px;
+}
+
+.categoria p {
+  color: gray;
+  font-size: 13px;
+}
+
+a.categoria:hover img {
+  filter: grayscale(100%) brightness(120%);
+  transform: scale(1.03);
+}
+
+/* Fotos de eventos */
+.regresar {
+  display: block;
+  padding: 0 40px;
+  font-size: 13px;
+}
+
+.regresar:hover {
+  color: gray;
+}
+
+.fotos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 0 40px 50px;
+}
+
+.fotos img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+/* Al pasar el cursor: la foto crece un poco y se aclara */
+.fotos img:hover {
+  transform: scale(1.05);
+  filter: brightness(115%);
+}
+
+/* Foto grande: oculta hasta que le das clic (:target) */
+.foto-grande {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.foto-grande:target {
+  display: flex;
+}
+
+.foto-grande img {
+  max-width: 85%;
+  max-height: 85%;
+}
+
+/* Flechas: enlaces a la foto anterior y a la siguiente */
+.anterior,
+.siguiente {
+  position: absolute;
+  top: 45%;
+  font-size: 70px;
+  color: white;
+  padding: 0 25px;
+}
+
+.anterior  { left: 10px; }
+.siguiente { right: 10px; }
+
+.anterior:hover,
+.siguiente:hover {
+  color: gray;
+}
+
+
+/* ===== CELULAR ===== */
+@media (max-width: 768px) {
+  .menu img { display: none; }
+  .opciones { width: 100%; }
+  .opciones a { font-size: 48px; }
+
+  .categorias { flex-direction: column; align-items: center; }
+  .fotos { grid-template-columns: repeat(2, 1fr); padding: 0 15px 30px; }
+  .fotos img { height: 160px; }
+  .encabezado { padding: 20px 15px; }
+  .boton-menu, .cerrar { right: 20px; }
+
+  /* En celular no hay cursor: las flechas siempre se ven */
+  .flechas label { opacity: 0.6; font-size: 50px; padding: 0 10px; }
+  .anterior, .siguiente { font-size: 50px; padding: 0 10px; }
+  .anterior  { left: 0; }
+  .siguiente { right: 0; }
+}
